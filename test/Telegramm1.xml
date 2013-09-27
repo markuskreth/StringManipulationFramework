@@ -1,0 +1,8 @@
+<wurzel>
+  <element zeit="+10000" />
+  <anderesElement zeit"-10000">-5000</anderesElement>
+  <element zeit="+10000" />
+  <anderesElement zeit"-10000">-5000</anderesElement>
+  <element zeit="+10000" />
+  <anderesElement zeit"-10000">-5000</anderesElement>
+</wurzel>
