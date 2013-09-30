@@ -1,13 +1,17 @@
 package de.kreth.telegrammmanipulation;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
@@ -24,6 +28,11 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 	ReplaceFunction function;
 	private int count = -1;
 	
+	/**
+	 * 
+	 * @param attibuteName	Name des gesuchten Attributs
+	 * @param function	Funktion, die auf den Wert des gefundenen Attributs ausgeführt werden soll.
+	 */
 	public XmlAttributeReplacor(String attibuteName, ReplaceFunction function) {
 		super();
 		this.attibuteName = attibuteName;
@@ -93,7 +102,7 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 	public Document getDocument(String source){
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(source)));
-		} catch (SAXException | IOException | ParserConfigurationException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

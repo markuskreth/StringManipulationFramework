@@ -7,7 +7,7 @@ public class ReplacementBusiness implements ReplaceFunction {
 	Collection<ReplaceFunction> functions;
 	
 	public ReplacementBusiness(ReplaceFunction function) {
-		functions = new HashSet<>();
+		functions = new HashSet<ReplaceFunction>();
 		functions.add(function);
 	}
 
