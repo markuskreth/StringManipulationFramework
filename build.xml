@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="StringManipulationFramework.makejar" default="release" basedir=".">
+  <target name ="release" description="Create a jar for the StringManipulationFramework project">
+    <jar jarfile="release/StringManipulationFramework.jar" includes="*.class" basedir="bin"/>
+  </target>
+</project>
