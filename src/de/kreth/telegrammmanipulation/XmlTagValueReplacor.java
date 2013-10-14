@@ -51,7 +51,11 @@ public class XmlTagValueReplacor implements ReplaceFunction {
 		Document document = getDocument(source);
 		
 		count = 0;
-		replaceValueOrSearchChildren(document.getDocumentElement());
+		NodeList elementsByTagName = document.getElementsByTagName(tagName);
+		for(int i=0;i<elementsByTagName.getLength();i++){
+			Node item = elementsByTagName.item(i);
+			replaceNodeValue(item);
+		}
 		return docToString(document);
 	}
 
@@ -91,23 +95,11 @@ public class XmlTagValueReplacor implements ReplaceFunction {
         return forma;
 	}
 	
-	private void replaceValueOrSearchChildren(Node node) {
-		if(node.hasChildNodes()){
-			NodeList childNodes = node.getChildNodes();
-			for(int i=0;i<childNodes.getLength();i++){
-				Node item = childNodes.item(i);
-				replaceValueOrSearchChildren(item);
-			}
-		} else
-			replaceNodeValue(node);
-	}
-
 	private void replaceNodeValue(Node node) {
-		if(node.getNodeName().matches(tagName)){
-			String value = node.getTextContent();
-			value = function.replace(value);
-			node.setTextContent(value);
-		}		
+
+		String value = node.getTextContent();
+		value = function.replace(value);
+		node.setTextContent(value);
 	}
 
 	/**
