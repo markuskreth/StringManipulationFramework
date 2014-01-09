@@ -1,8 +1,8 @@
 package de.kreth.telegrammmanipulation;
 
-import static org.junit.Assert.*;
-import static de.kreth.telegrammmanipulation.TestStrings.*;
+import static org.junit.Assert.assertEquals;
 
+import static de.kreth.telegrammmanipulation.TestStrings.*;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -21,6 +21,7 @@ public class XmlAttributeReplacorTest {
 	@BeforeClass
 	public static void initDateformat(){
 		df = DateFormat.getDateTimeInstance(Calendar.SHORT, Calendar.LONG);
+		
 	}
 	
 	@Before
