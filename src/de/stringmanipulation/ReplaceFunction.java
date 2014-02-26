@@ -1,4 +1,4 @@
-package de.kreth.telegrammmanipulation;
+package de.stringmanipulation;
 
 public interface ReplaceFunction {
 	String replace(String source);

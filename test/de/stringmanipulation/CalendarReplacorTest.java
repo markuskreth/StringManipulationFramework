@@ -1,27 +1,32 @@
-package de.kreth.telegrammmanipulation;
+package de.stringmanipulation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-
-import de.stringmanipulation.CalendarReplacor;
-import de.stringmanipulation.ReplaceFunction;
-import de.stringmanipulation.TestStrings;
 
 public class CalendarReplacorTest {
 
 	private static String testXML;
+	
+	@BeforeClass
+	public static void loadXmlString(){
+		InputStream resourceAsStream = CalendarReplacorTest.class.getClassLoader().getResourceAsStream("/Telegramm1.xml");
+		System.out.println(resourceAsStream);
 		
+	}
+	
 	@Before
 	public void setup(){
-		CalendarReplacorTest.testXML = TestStrings.testXML;
+		testXML = TestStrings.testXML;
 	}
 	
 	@Test

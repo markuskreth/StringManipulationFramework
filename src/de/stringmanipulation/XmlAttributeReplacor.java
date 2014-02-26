@@ -1,16 +1,20 @@
-package de.kreth.telegrammmanipulation;
+package de.stringmanipulation;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-
-import de.stringmanipulation.ReplaceFunction;
+import org.xml.sax.SAXException;
 
 /**
  * Durchsucht den XML source-String in allen XML-Tags nach dem konfigurierten Attributnamen und führt die konfigurierte {@link ReplaceFunction} darauf aus.
@@ -24,11 +28,6 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 	ReplaceFunction function;
 	private int count = -1;
 	
-	/**
-	 * 
-	 * @param attibuteName	Name des gesuchten Attributs
-	 * @param function	Funktion, die auf den Wert des gefundenen Attributs ausgef�hrt werden soll.
-	 */
 	public XmlAttributeReplacor(String attibuteName, ReplaceFunction function) {
 		super();
 		this.attibuteName = attibuteName;
@@ -41,27 +40,19 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 		
 		count = 0;
 		replaceAttributeInElementsAndChildren(document.getDocumentElement());
-		
 
-        OutputFormat format = getOutputFormat(document);
-        
-        Writer out = new StringWriter();
-        XMLSerializer serializer = new XMLSerializer(out, format);
-        try {
-			serializer.serialize(document);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-        return out.toString();
-	}
-
-	public OutputFormat getOutputFormat(Document document){
-        OutputFormat format = new OutputFormat(document);
-        format.setIndenting(true);
-        format.setIndent(2);
-        format.setOmitXMLDeclaration(true);
-        return format;
+	    try {
+	       DOMSource domSource = new DOMSource(document);
+	       StringWriter writer = new StringWriter();
+	       StreamResult result = new StreamResult(writer);
+	       TransformerFactory tf = TransformerFactory.newInstance();
+	       Transformer transformer = tf.newTransformer();
+	       transformer.transform(domSource, result);
+	       return writer.toString().replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "");
+	    } catch(TransformerException ex) {
+	       ex.printStackTrace();
+	       return null;
+	    }
 	}
 	
 	private void replaceAttributeInElementsAndChildren(Node node) {
@@ -98,7 +89,7 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 	public Document getDocument(String source){
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(source)));
-		} catch (Exception e) {
+		} catch (SAXException | IOException | ParserConfigurationException e) {
 			throw new RuntimeException(e);
 		}
 	}

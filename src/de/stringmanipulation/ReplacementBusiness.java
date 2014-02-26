@@ -1,17 +1,15 @@
-package de.kreth.telegrammmanipulation;
+package de.stringmanipulation;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-
-import de.stringmanipulation.ReplaceFunction;
 
 public class ReplacementBusiness implements ReplaceFunction {
 
 	Collection<ReplaceFunction> functions;
 	
 	public ReplacementBusiness(ReplaceFunction function) {
-		functions = new HashSet<ReplaceFunction>();
+		functions = new HashSet<>();
 		functions.add(function);
 	}
 

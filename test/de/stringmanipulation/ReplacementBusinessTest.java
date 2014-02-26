@@ -1,7 +1,7 @@
-package de.kreth.telegrammmanipulation;
+package de.stringmanipulation;
 
-import static de.kreth.telegrammmanipulation.TestStrings.testXMLTagNums;
-import static de.kreth.telegrammmanipulation.TestStrings.testXMLTagNumsReplacable;
+import static de.stringmanipulation.TestStrings.testXMLTagNums;
+import static de.stringmanipulation.TestStrings.testXMLTagNumsReplacable;
 import static org.junit.Assert.assertEquals;
 
 import java.text.DateFormat;
@@ -11,9 +11,6 @@ import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.w3c.dom.Document;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 
 public class ReplacementBusinessTest {
 
@@ -87,15 +84,7 @@ public class ReplacementBusinessTest {
    }
 
    private XmlAttributeReplacor getXmlAttributeReplacor(String attrName, ReplaceFunction calReplacor){
-      return new XmlAttributeReplacor(attrName, calReplacor){
-
-         public OutputFormat getOutputFormat(Document document){
-              OutputFormat format = new OutputFormat(document);
-              format.setIndenting(false);
-              format.setOmitXMLDeclaration(true);
-              return format;
-         }
-      };
+      return new XmlAttributeReplacor(attrName, calReplacor);
 
    }
 }
