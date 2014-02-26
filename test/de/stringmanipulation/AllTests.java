@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ CalendarReplacorTest.class, XmlAttributeReplacorTest.class, ReplacementBusinessTest.class })
+@SuiteClasses({ CalendarReplacorTest.class, XmlAttributeReplacorTest.class, ReplacementBusinessTest.class, de.kreth.telegrammmanipulation.CalendarReplacorTest.class })
 public class AllTests extends TestSuite {
    // Ist schon funktional - Klassen aus Annotation
 }
