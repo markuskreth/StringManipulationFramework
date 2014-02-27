@@ -1,8 +1,14 @@
 package de.kreth.telegrammmanipulation;
 
+import static de.kreth.telegrammmanipulation.TestStrings.testXML;
+import static de.kreth.telegrammmanipulation.TestStrings.testXMLLineBreaks;
+import static de.kreth.telegrammmanipulation.TestStrings.testXml1Element;
+import static de.kreth.telegrammmanipulation.TestStrings.testXml2Elements;
+import static de.kreth.telegrammmanipulation.TestStrings.testXml2ElementsMinus;
+import static de.kreth.telegrammmanipulation.TestStrings.testXml2ElementsMinusReplacable;
+import static de.kreth.telegrammmanipulation.TestStrings.testXml2ElementsReplacable;
 import static org.junit.Assert.assertEquals;
 
-import static de.kreth.telegrammmanipulation.TestStrings.*;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -10,9 +16,6 @@ import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.w3c.dom.Document;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 
 public class XmlAttributeReplacorTest {
 
@@ -60,13 +63,6 @@ public class XmlAttributeReplacorTest {
 		Calendar time = new GregorianCalendar();
 		CalendarReplacor calReplacor = new CalendarReplacor(time, df);
 		XmlAttributeReplacor repl = new XmlAttributeReplacor("zeit", calReplacor){
-
-			public OutputFormat getOutputFormat(Document document){
-		        OutputFormat format = new OutputFormat(document);
-		        format.setIndenting(false);
-		        format.setOmitXMLDeclaration(true);
-		        return format;
-			}
 		};
 
 		Calendar time10000 = Calendar.getInstance();
@@ -78,7 +74,7 @@ public class XmlAttributeReplacorTest {
 		time20000.add(Calendar.MILLISECOND, -20000);
 		
 		String expected = String.format(testXml2ElementsMinusReplacable, df.format(time10000.getTime()), df.format(time20000.getTime()));
-		String actual = repl.replace(testXml2ElementsMinus);
+		String actual = repl.replace(testXml2ElementsMinus).replace("\r\n", "").replace("\n", "");
 		assertEquals(expected, actual);
 		
 		time10000 = Calendar.getInstance();
@@ -90,7 +86,7 @@ public class XmlAttributeReplacorTest {
 		time20000.add(Calendar.MILLISECOND, 20000);
 		
 		expected = String.format(testXml2ElementsReplacable, df.format(time10000.getTime()), df.format(time20000.getTime()));
-		actual = repl.replace(testXml2Elements);
+		actual = repl.replace(testXml2Elements).replace("\r\n", "").replace("\n", "");
 		assertEquals(expected, actual);
 	}
 }

@@ -1,19 +1,20 @@
 package de.kreth.telegrammmanipulation;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.Writer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * Durchsucht den XML source-String in allen XML-Tags nach dem konfigurierten Attributnamen und fÃ¼hrt die konfigurierte {@link ReplaceFunction} darauf aus.
@@ -26,7 +27,6 @@ public class XmlTagValueReplacor implements ReplaceFunction {
 	String tagName;
 	ReplaceFunction function;
 	private int count = -1;
-	private OutputFormat format = null;
 	
 	/**
 	 * 
@@ -39,13 +39,6 @@ public class XmlTagValueReplacor implements ReplaceFunction {
 		this.function = function;
 	}
 
-	/**
-	 * @param format OutputFormat für die XML-ausgabe setzten.
-	 */
-	public void setFormat(OutputFormat format) {
-		this.format = format;
-	}
-	
 	@Override
 	public String replace(String source) {
 		Document document = getDocument(source);
@@ -69,30 +62,16 @@ public class XmlTagValueReplacor implements ReplaceFunction {
 	 */
 	public String docToString(Document document) {
 
-        OutputFormat format = getOutputFormat(document);
-        
-        Writer out = new StringWriter();
-        XMLSerializer serializer = new XMLSerializer(out, format);
+        StringWriter out = new StringWriter();
         try {
-			serializer.serialize(document);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-        return out.toString();
-	}
-
-	public OutputFormat getOutputFormat(Document document){
-        OutputFormat forma;
-        if(this.format != null)
-        	forma = this.format;
-        else {
-	        forma = new OutputFormat(document);
-	        forma.setIndenting(true);
-	        forma.setIndent(2);
-	        forma.setOmitXMLDeclaration(true);
-        }
-        return forma;
+	        TransformerFactory tf = TransformerFactory.newInstance();  
+	        Transformer transformer = tf.newTransformer();  
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.transform(new DOMSource(document), new StreamResult(out));
+		} catch (TransformerException e) {
+			System.err.println(e);
+		} 
+        return out.toString().replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>", "").trim();
 	}
 	
 	private void replaceNodeValue(Node node) {
