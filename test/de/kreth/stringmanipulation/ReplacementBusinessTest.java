@@ -1,7 +1,7 @@
-package de.stringmanipulation;
+package de.kreth.stringmanipulation;
 
-import static de.stringmanipulation.TestStrings.testXMLTagNums;
-import static de.stringmanipulation.TestStrings.testXMLTagNumsReplacable;
+import static de.kreth.stringmanipulation.TestStrings.testXMLTagNums;
+import static de.kreth.stringmanipulation.TestStrings.testXMLTagNumsReplacable;
 import static org.junit.Assert.assertEquals;
 
 import java.text.DateFormat;

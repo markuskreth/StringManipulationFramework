@@ -1,19 +1,18 @@
 package de.kreth.telegrammmanipulation;
 
 
+import java.io.StringReader;
+import java.io.StringWriter;
+
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
-
-import de.stringmanipulation.ReplaceFunction;
+import de.kreth.stringmanipulation.ReplaceFunction;
 /**
  * Durchsucht den XML source-String in allen XML-Tags nach dem konfigurierten Attributnamen und führt die konfigurierte {@link ReplaceFunction} darauf aus.
  * Der Inhalt (Wert) des Attributes muss den Anforderungen der {@link ReplaceFunction} genügen. 
@@ -91,8 +90,8 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 	 * Create at: 01.10.2013 - 09:41:11
 	 *
 	 * @param document
-	 * @return
-	 * @remarks NICHT GETESTET
+	 * @return resulting Xml as String without heading xml info
+	 * @remarks GETESTET
 	 */
 	
 	public String docToString(Document document) {

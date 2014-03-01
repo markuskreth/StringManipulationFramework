@@ -11,9 +11,9 @@ import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.stringmanipulation.CalendarReplacor;
-import de.stringmanipulation.ReplaceFunction;
-import de.stringmanipulation.TestStrings;
+import de.kreth.stringmanipulation.CalendarReplacor;
+import de.kreth.stringmanipulation.ReplaceFunction;
+import de.kreth.stringmanipulation.TestStrings;
 
 public class CalendarReplacorTest {
 

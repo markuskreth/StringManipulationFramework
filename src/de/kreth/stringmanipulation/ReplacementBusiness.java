@@ -1,4 +1,4 @@
-package de.stringmanipulation;
+package de.kreth.stringmanipulation;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ public class ReplacementBusiness implements ReplaceFunction {
 	Collection<ReplaceFunction> functions;
 	
 	public ReplacementBusiness(ReplaceFunction function) {
-		functions = new HashSet<>();
+		functions = new HashSet<ReplaceFunction>();
 		functions.add(function);
 	}
 

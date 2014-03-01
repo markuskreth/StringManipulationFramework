@@ -1,4 +1,4 @@
-package de.stringmanipulation;
+package de.kreth.stringmanipulation;
 
 import junit.framework.TestSuite;
 

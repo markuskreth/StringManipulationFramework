@@ -1,4 +1,4 @@
-package de.stringmanipulation;
+package de.kreth.stringmanipulation;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -43,11 +43,14 @@ public class CalendarReplacor implements ReplaceFunction {
 	public String replace(String source) {
 		Calendar tmp = Calendar.getInstance();
 		tmp.setTime(time.getTime());
+		String s;
 		
 		if(source.startsWith("+"))
-			source = source.substring(1);
+			s = source.substring(1);
+		else
+		   s= source;
 		
-		int amount = Integer.parseInt(source);
+		int amount = Integer.parseInt(s);
 		tmp.add(field, amount );
 		return dateformat.format(tmp.getTime());
 	}

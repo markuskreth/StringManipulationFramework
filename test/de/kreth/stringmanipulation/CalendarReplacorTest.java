@@ -1,4 +1,4 @@
-package de.stringmanipulation;
+package de.kreth.stringmanipulation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,6 +12,9 @@ import java.util.GregorianCalendar;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import de.kreth.stringmanipulation.CalendarReplacor;
+import de.kreth.stringmanipulation.ReplaceFunction;
 
 public class CalendarReplacorTest {
 

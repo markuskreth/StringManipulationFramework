@@ -1,4 +1,4 @@
-package de.stringmanipulation;
+package de.kreth.stringmanipulation;
 
 public interface ReplaceFunction {
 

@@ -1,12 +1,6 @@
-package de.stringmanipulation;
+package de.kreth.stringmanipulation;
 
-import static de.kreth.telegrammmanipulation.TestStrings.testXML;
-import static de.kreth.telegrammmanipulation.TestStrings.testXMLLineBreaks;
-import static de.kreth.telegrammmanipulation.TestStrings.testXml1Element;
-import static de.kreth.telegrammmanipulation.TestStrings.testXml2Elements;
-import static de.kreth.telegrammmanipulation.TestStrings.testXml2ElementsMinus;
-import static de.kreth.telegrammmanipulation.TestStrings.testXml2ElementsMinusReplacable;
-import static de.kreth.telegrammmanipulation.TestStrings.testXml2ElementsReplacable;
+import static de.kreth.stringmanipulation.TestStrings.*;
 import static org.junit.Assert.assertEquals;
 
 import java.text.DateFormat;
@@ -15,6 +9,9 @@ import java.util.GregorianCalendar;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import de.kreth.stringmanipulation.CalendarReplacor;
+import de.kreth.stringmanipulation.XmlAttributeReplacor;
 
 public class XmlAttributeReplacorTest {
 

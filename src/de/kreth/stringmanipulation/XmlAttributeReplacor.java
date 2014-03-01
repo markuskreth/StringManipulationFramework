@@ -1,4 +1,4 @@
-package de.stringmanipulation;
+package de.kreth.stringmanipulation;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -89,8 +89,12 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 	public Document getDocument(String source){
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(source)));
-		} catch (SAXException | IOException | ParserConfigurationException e) {
-			throw new RuntimeException(e);
-		}
+		} catch (SAXException e) {
+         throw new RuntimeException(e);
+		} catch (IOException e) {
+         throw new RuntimeException(e);
+      } catch (ParserConfigurationException e) {
+         throw new RuntimeException(e);
+      }
 	}
 }

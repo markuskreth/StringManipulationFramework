@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import de.stringmanipulation.ReplaceFunction;
+import de.kreth.stringmanipulation.ReplaceFunction;
 
 public class ReplacementBusiness implements ReplaceFunction {
 

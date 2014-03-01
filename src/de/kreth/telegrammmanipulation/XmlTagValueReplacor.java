@@ -4,10 +4,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -15,6 +12,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+
+import de.kreth.stringmanipulation.ReplaceFunction;
 
 /**
  * Durchsucht den XML source-String in allen XML-Tags nach dem konfigurierten Attributnamen und fÃ¼hrt die konfigurierte {@link ReplaceFunction} darauf aus.
@@ -31,7 +30,7 @@ public class XmlTagValueReplacor implements ReplaceFunction {
 	/**
 	 * 
 	 * @param tagName	Name des gesuchten Tags
-	 * @param function	Funktion, die auf den Wert des gefundenen Tag ausgeführt werden soll.
+	 * @param function	Funktion, die auf den Wert des gefundenen Tag ausgefï¿½hrt werden soll.
 	 */
 	public XmlTagValueReplacor(String tagName, ReplaceFunction function) {
 		super();
@@ -57,8 +56,8 @@ public class XmlTagValueReplacor implements ReplaceFunction {
 	 * Create at: 01.10.2013 - 09:25:21
 	 *
 	 * @param document
-	 * @return
-	 * @remarks NICHT GETESTET
+	 * @return xml as String without head version info
+	 * @remarks GETESTET
 	 */
 	public String docToString(Document document) {
 
