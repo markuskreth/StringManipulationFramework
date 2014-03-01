@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="StringManipulationFramework.makejar" default="release" basedir=".">
+
+	<target name="clean">
+		<delete dir="bin"/>
+		<mkdir dir="bin"/>
+        <delete dir="release"/>
+        <mkdir dir="release"/>
+	</target>
+
+	<target name="compile">
+		<javac includeantruntime="false" srcdir="src" destdir="bin"/>
+	</target>
+
+	<target 
+		name ="release" 
+		depends="clean,compile"
+		description="Create a jar for the StringManipulationFramework project" >
+		<jar jarfile="release/StringManipulationFramework.jar" includes="**/*.class" basedir="bin"/>
+	</target>
+
+</project>

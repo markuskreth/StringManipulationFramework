@@ -44,6 +44,9 @@ public class CalendarReplacor implements ReplaceFunction {
 		Calendar tmp = Calendar.getInstance();
 		tmp.setTime(time.getTime());
 		
+		if(source.startsWith("+"))
+			source = source.substring(1);
+		
 		int amount = Integer.parseInt(source);
 		tmp.add(field, amount );
 		return dateformat.format(tmp.getTime());

@@ -16,7 +16,6 @@ local.properties
 src/test.properties
 
 # Eclipse project files
-.classpath
 .project
 .metadata/
 

@@ -1,17 +1,19 @@
 package de.kreth.telegrammmanipulation;
 
-import java.io.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 import de.stringmanipulation.ReplaceFunction;
-
 /**
  * Durchsucht den XML source-String in allen XML-Tags nach dem konfigurierten Attributnamen und führt die konfigurierte {@link ReplaceFunction} darauf aus.
  * Der Inhalt (Wert) des Attributes muss den Anforderungen der {@link ReplaceFunction} genügen. 
@@ -42,26 +44,7 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 		count = 0;
 		replaceAttributeInElementsAndChildren(document.getDocumentElement());
 		
-
-        OutputFormat format = getOutputFormat(document);
-        
-        Writer out = new StringWriter();
-        XMLSerializer serializer = new XMLSerializer(out, format);
-        try {
-			serializer.serialize(document);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-        return out.toString();
-	}
-
-	public OutputFormat getOutputFormat(Document document){
-        OutputFormat format = new OutputFormat(document);
-        format.setIndenting(true);
-        format.setIndent(2);
-        format.setOmitXMLDeclaration(true);
-        return format;
+		return docToString(document);
 	}
 	
 	private void replaceAttributeInElementsAndChildren(Node node) {
@@ -101,5 +84,28 @@ public class XmlAttributeReplacor implements ReplaceFunction {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 *
+	 * Create at: 01.10.2013 - 09:41:11
+	 *
+	 * @param document
+	 * @return
+	 * @remarks NICHT GETESTET
+	 */
+	
+	public String docToString(Document document) {
+
+        StringWriter out = new StringWriter();
+        try {
+	        TransformerFactory tf = TransformerFactory.newInstance();  
+	        Transformer transformer = tf.newTransformer();  
+	        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.transform(new DOMSource(document), new StreamResult(out));
+		} catch (TransformerException e) {
+			System.err.println(e);
+		} 
+        return out.toString().replaceAll("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>", "").trim();
 	}
 }
