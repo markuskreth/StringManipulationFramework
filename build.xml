@@ -14,7 +14,7 @@
 
 	<target 
 		name ="release" 
-		depends="clean,compile"
+		depends="compile"
 		description="Create a jar for the StringManipulationFramework project" >
 		<jar jarfile="release/StringManipulationFramework.jar" includes="**/*.class" basedir="bin"/>
 	</target>
